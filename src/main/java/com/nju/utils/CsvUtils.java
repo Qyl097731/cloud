@@ -9,6 +9,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * @description:
  * @author: qyl
@@ -36,16 +38,66 @@ public class CsvUtils {
             if (parent != null && !parent.exists()) {
                 parent.mkdirs();
             }
-            csvFile.createNewFile();
-
-            // GB2312使正确读取分隔符","
-            csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                    csvFile), "GB2312"), 1024);
-            // 写入文件头部
-            writeRow(head, csvWriter);
+            if (!csvFile.exists()) {
+                csvFile.createNewFile();
+                csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                        csvFile, true), UTF_8), 1024);
+                // 写入文件头部
+                writeRow(head, csvWriter);
+            } else {
+                csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                        csvFile, true), UTF_8), 1024);
+            }
 
             // 写入文件内容
             writeRow(dataList, csvWriter);
+            csvWriter.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (csvWriter != null) {
+                    csvWriter.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return csvFile;
+    }
+
+    /**
+     * CSV文件生成方法
+     * 追加数据
+     *
+     * @param dataList   数据列表
+     * @param outPutPath 文件输出路径
+     * @param filename   文件名
+     * @return
+     */
+    public static File createCSVFile2(List<Object> header, List<List<Object>> dataList, String outPutPath,
+                                      String filename) {
+        File csvFile = null;
+        BufferedWriter csvWriter = null;
+        try {
+            csvFile = new File(outPutPath + File.separator + filename + ".csv");
+            File parent = csvFile.getParentFile();
+            if (!parent.exists()) {
+                parent.mkdirs();
+            }
+            if (!csvFile.exists()) {
+                csvFile.createNewFile();
+                csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                        csvFile), UTF_8), 1024);
+                // 写入文件头部
+                writeRow(header, csvWriter);
+            }
+            csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                    csvFile, true), UTF_8), 1024);
+            // 写入文件内容
+            for (List<Object> row : dataList) {
+                writeRow(row, csvWriter);
+            }
             csvWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,38 +124,13 @@ public class CsvUtils {
         // 写入文件头部
         for (Object data : row) {
             StringBuilder sb = new StringBuilder();
-            if (data instanceof JSONArray){
-                data = StringUtils.join(((JSONArray) data).toArray(new Object[0]),",");
+            if (data instanceof JSONArray) {
+                data = StringUtils.join(((JSONArray) data).toArray(new Object[0]), ",");
             }
             String rowStr = sb.append("\"").append(data).append("\",").toString();
             csvWriter.write(rowStr);
         }
         csvWriter.newLine();
-    }
-
-    public static void addCloumn(List<List<Object>> pList, String filePath) throws IOException {
-        StringBuffer nContent;
-        try (BufferedReader bufReader = new BufferedReader(new FileReader(filePath))) {
-            String lineStr = "";
-            int rowNumber = 0;
-            nContent = new StringBuffer();
-            while ((lineStr = bufReader.readLine()) != null) {
-                List<Object> addValue = new ArrayList<>();
-                if (rowNumber < pList.size()) {
-                    addValue = pList.get(rowNumber);
-                }
-                if (lineStr.endsWith(",")) {
-                    nContent.append(lineStr).append("\"" + addValue + "\"");
-                } else {
-                    nContent.append(lineStr).append(",\"" + addValue + "\"");
-                }
-                rowNumber++;
-                nContent.append("\r\n");
-            }
-        }
-        try (FileOutputStream fileOs = new FileOutputStream(new File(filePath), false)) {
-            fileOs.write(nContent.toString().getBytes());
-        }
     }
 
     /**

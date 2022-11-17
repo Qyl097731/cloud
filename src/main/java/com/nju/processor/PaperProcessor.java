@@ -3,20 +3,14 @@ package com.nju.processor;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Strings;
-import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.selector.Json;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author qyl
@@ -55,7 +49,7 @@ public class PaperProcessor implements PageProcessor {
                 Map authors = (Map) JSON.parse((((List) map.get("authors")).get(0)).toString());
                 date.add(authors.get("name"));
                 date.add(getKeyWords((JSONArray) map.get("keywords")));
-                page.putField("date", date);
+                page.putField("data", date);
             }catch (Exception e){
             }
         }

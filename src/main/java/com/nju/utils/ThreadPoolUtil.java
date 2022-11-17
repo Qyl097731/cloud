@@ -17,8 +17,10 @@ public class ThreadPoolUtil {
 
     public static ExecutorService getExecutorService() {
         if (null == executor || executor.isShutdown() || executor.isTerminated()) {
-            ThreadFactory namedThreadFactory = (new ThreadFactoryBuilder()).setNameFormat("nju-pool-%d").build();
-            executor = new ThreadPoolExecutor(POOLSIZE, POOLSIZE, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue(1048576), namedThreadFactory, new AbortPolicy());
+            ThreadFactory namedThreadFactory =
+                    (new ThreadFactoryBuilder()).setNameFormat("nju-pool-%d").setDaemon(true).build();
+            executor = new ThreadPoolExecutor(POOLSIZE, 100, 0L, TimeUnit.MILLISECONDS,
+                    new LinkedBlockingQueue(1048576), namedThreadFactory, new AbortPolicy());
         }
 
         return executor;

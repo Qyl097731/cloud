@@ -6,6 +6,8 @@ package com.nju.consts;
  * @author: qyl
  */
 public class UrlConstant {
-    public static final String SEARCH_URL = "https://github.com/search?p={0}&q={1}&type=Repositories";
-    public static final String DETAIL_URL = "https://github.com/{0}";
+    public static final String IEEE_URL = "https://ieeexplore.ieee.org/document/%d";
+    public static final String GITEE_URL = "https://gitee.com/explore/all?order=latest&page=%d";
+    public static final String GITEE_REPO_URL = "https://gitee.com";
+
 }
