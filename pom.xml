@@ -27,13 +27,7 @@
             <artifactId>jsoup</artifactId>
             <version>1.14.3</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.8.2</version>
-            <scope>test</scope>
-        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -82,18 +76,6 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>1.4</version>
-            <!--排除冲突的包-->
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- commons-lang -->
         <dependency>
@@ -154,23 +136,7 @@
             <version>1.2.59</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-common</artifactId>
-            <version>3.2.0</version>
-        </dependency>
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.seleniumhq.selenium</groupId>-->
-        <!--            <artifactId>selenium-java</artifactId>-->
-        <!--            <version>4.6.0</version>-->
-        <!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <version>3.2.0</version>
-        </dependency>
         <!-- 爬虫 -->
         <dependency>
             <groupId>us.codecraft</groupId>
@@ -230,12 +196,6 @@
             <artifactId>spark-sql_2.12</artifactId>
             <version>3.3.1</version>
         </dependency>
-        <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.spark/spark-streaming &ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.spark</groupId>-->
-        <!--            <artifactId>spark-streaming_2.12</artifactId>-->
-        <!--            <version>3.3.1</version>-->
-        <!--        </dependency>-->
     </dependencies>
     <build>
         <plugins>

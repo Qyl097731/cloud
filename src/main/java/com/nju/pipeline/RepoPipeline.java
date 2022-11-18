@@ -5,7 +5,6 @@ import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,12 +25,11 @@ public class RepoPipeline implements Pipeline {
             "desc",
             "language"
     );
-    public static DateTimeFormatter FORMAT_YMDH = DateTimeFormatter.ofPattern("yyyyMMddHH");
 
     @Override
     public void process(ResultItems resultItems, Task task) {
         List<Object> data = resultItems.get("data");
-        CsvUtils.createCSVFile(HEADER, data, "/usr/local/data/test/",
+        CsvUtils.createCSVFile(HEADER, data, "/usr/local/data/",
                 data.get(0).toString());
     }
 }

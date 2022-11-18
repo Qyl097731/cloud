@@ -1,6 +1,5 @@
 package com.nju.utils;
 
-import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,15 +109,8 @@ public class CsvUtils {
      * @throws IOException
      */
     private static void writeRow(List<Object> row, BufferedWriter csvWriter) throws IOException {
-        // 写入文件头部
-        for (Object data : row) {
-            StringBuilder sb = new StringBuilder();
-            if (data instanceof JSONArray) {
-                data = StringUtils.join(((JSONArray) data).toArray(new Object[0]), ",");
-            }
-            String rowStr = sb.append("\"").append(data).append("\",").toString();
-            csvWriter.write(rowStr);
-        }
+        String rowStr = StringUtils.join(row, ",");
+        csvWriter.write(rowStr);
         csvWriter.newLine();
     }
 
