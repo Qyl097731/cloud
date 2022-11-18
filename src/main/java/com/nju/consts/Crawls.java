@@ -16,7 +16,7 @@ public class Crawls {
 
     public static CrawlMethod of(String name) {
         try {
-            Class<?> clazz = Crawls.class.getClassLoader().loadClass(name);
+            Class<?> clazz = Crawls.class.getClassLoader().loadClass("com.nju.crawls." + name);
             return (CrawlMethod) clazz.newInstance();
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();

@@ -3,6 +3,7 @@ package com.nju.crawls;
 import com.nju.consts.CrawlMethod;
 import com.nju.utils.CsvUtils;
 import com.nju.utils.HttpUtils;
+import com.nju.utils.ThreadPoolUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,8 +43,10 @@ public class GiteeOpenInfoCrawl implements CrawlMethod {
                 data.addAll(crawlGiteeOpenInfoWithJsoupConcurrently(pStart, Math.min(pStart + POOLSIZE, PEND)));
                 pStart = Math.min(pStart + POOLSIZE, PEND);
             }
-            CsvUtils.createCSVFile2(HEADER, data, "data/", "all_data");
+            CsvUtils.createCSVFile2(HEADER, data, "/usr/local/data", "all_data");
         } catch (Exception e) {
+        } finally {
+            ThreadPoolUtil.closeThreadPool();
         }
     }
 

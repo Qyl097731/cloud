@@ -34,7 +34,7 @@ public class GiteeOpenInfoPipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         List<List<Object>> data = resultItems.get("data");
-        CsvUtils.createCSVFile2(HEADER, data, "data/",
+        CsvUtils.createCSVFile2(HEADER, data, "/data",
                 LocalDateTime.now(ZoneId.systemDefault()).format(FORMAT_YMDH));
     }
 }

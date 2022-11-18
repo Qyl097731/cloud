@@ -5,8 +5,6 @@ import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +31,7 @@ public class RepoPipeline implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         List<Object> data = resultItems.get("data");
-        CsvUtils.createCSVFile(HEADER, data, "data/",
-                LocalDateTime.now(ZoneId.systemDefault()).format(FORMAT_YMDH));
+        CsvUtils.createCSVFile(HEADER, data, "/usr/local/data/test/",
+                data.get(0).toString());
     }
 }

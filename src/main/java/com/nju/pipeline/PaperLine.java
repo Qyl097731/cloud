@@ -26,7 +26,7 @@ public class PaperLine implements Pipeline {
     @Override
     public void process(ResultItems resultItems, Task task) {
         List<Object> date = resultItems.get("data");
-        CsvUtils.createCSVFile(header, date.subList(1, date.size()), "F:\\data",
+        CsvUtils.createCSVFile(header, date.subList(1, date.size()), "/usr/local/data/",
                 date.get(0).toString() + "test");
     }
 }

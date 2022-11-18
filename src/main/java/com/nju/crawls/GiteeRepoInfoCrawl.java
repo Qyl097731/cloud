@@ -7,6 +7,8 @@ import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.utils.HttpConstant;
 
+import java.util.stream.IntStream;
+
 import static com.nju.consts.UrlConstant.GITEE_URL;
 
 /**
@@ -15,6 +17,8 @@ import static com.nju.consts.UrlConstant.GITEE_URL;
  * @author: qyl
  */
 public class GiteeRepoInfoCrawl implements CrawlMethod {
+    private static final int PEND = 10;
+
     @Override
     public void crawl() {
         crawlGiteeWithSpider();
@@ -25,17 +29,15 @@ public class GiteeRepoInfoCrawl implements CrawlMethod {
      */
     private void crawlGiteeWithSpider() {
         try {
-            int pStart = PSTART;
-            while (pStart <= PEND) {
-                String target = String.format(GITEE_URL, pStart);
-                Request request = new Request(target);
-                request.setMethod(HttpConstant.Method.GET);
-                //执行爬取任务
-                Spider spider = Spider.create(new GiteeProcessor());
-                //调用接口地址 在Pipeline中进行数据处理
-                spider.addRequest(request).addPipeline(new GiteePipeline()).run();
-                pStart++;
-            }
+            Request[] requests = IntStream.rangeClosed(PSTART, PEND).mapToObj(pid -> {
+                String target = String.format(GITEE_URL, pid);
+                return new Request(target).setMethod(HttpConstant.Method.GET);
+            }).toArray(Request[]::new);
+            //执行爬取任务
+            Spider spider = Spider.create(new GiteeProcessor());
+            //调用接口地址 在Pipeline中进行数据处理
+            spider.addRequest(requests).addPipeline(new GiteePipeline())
+                    .thread(POOL, requests.length).run();
         } catch (Exception e) {
         }
     }

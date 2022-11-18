@@ -38,17 +38,11 @@ public class CsvUtils {
             if (parent != null && !parent.exists()) {
                 parent.mkdirs();
             }
-            if (!csvFile.exists()) {
-                csvFile.createNewFile();
-                csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                        csvFile, true), UTF_8), 1024);
-                // 写入文件头部
-                writeRow(head, csvWriter);
-            } else {
-                csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                        csvFile, true), UTF_8), 1024);
-            }
-
+            csvFile.createNewFile();
+            csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                    csvFile), UTF_8), 1024);
+            // 写入文件头部
+            writeRow(head, csvWriter);
             // 写入文件内容
             writeRow(dataList, csvWriter);
             csvWriter.flush();
