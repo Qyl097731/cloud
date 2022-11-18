@@ -29,7 +29,6 @@ public class GiteeOpenInfoPipeline implements Pipeline {
             "time"
     );
     public static DateTimeFormatter FORMAT_YMDH = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-    public static DateTimeFormatter FORMAT_YMDHMS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
 
 
     @Override

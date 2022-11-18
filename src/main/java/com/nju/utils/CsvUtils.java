@@ -85,15 +85,10 @@ public class CsvUtils {
             if (!parent.exists()) {
                 parent.mkdirs();
             }
-            if (!csvFile.exists()) {
-                csvFile.createNewFile();
-                csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                        csvFile), UTF_8), 1024);
-                // 写入文件头部
-                writeRow(header, csvWriter);
-            }
+            csvFile.createNewFile();
             csvWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                    csvFile, true), UTF_8), 1024);
+                    csvFile), UTF_8), 1024);
+            writeRow(header, csvWriter);
             // 写入文件内容
             for (List<Object> row : dataList) {
                 writeRow(row, csvWriter);
