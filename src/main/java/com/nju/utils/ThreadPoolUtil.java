@@ -22,7 +22,6 @@ public class ThreadPoolUtil {
             executor = new ThreadPoolExecutor(POOLSIZE, 100, 0L, TimeUnit.MILLISECONDS,
                     new LinkedBlockingQueue(1048576), namedThreadFactory, new AbortPolicy());
         }
-
         return executor;
     }
 
