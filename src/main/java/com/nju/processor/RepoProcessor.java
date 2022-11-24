@@ -43,19 +43,21 @@ public class RepoProcessor implements PageProcessor {
     }
 
     private List<Object> encapsulateData(Html content) {
-        List<Object> data = new ArrayList<>();
-        String author = content.css(".author", "text").get();
-        data.add(author);
-        String repo = content.css(".repository", "text").get();
-        data.add(repo);
-        List<String> labels = content.css(".project-label-item", "text").all();
-        data.add(StringUtils.join(labels, ","));
-        List<String> social = content.css(".ui.button.action-social-count", "title").all();
-        data.addAll(social);
-        String desc = content.css(".git-project-desc-text", "text").get();
-        data.add(desc);
-        String language = content.css(".summary-languages", "text").get();
-        data.add(language);
+        List<Object> data = new ArrayList<> ( );
+        String author = content.css (".author", "text").get ( );
+        data.add (author);
+        String repo = content.css (".repository", "text").get ( );
+        data.add (repo);
+        List<String> labels = content.css (".project-label-item", "text").all ( );
+        data.add (StringUtils.join (labels, ","));
+        List<String> social = content.css (".ui.button.action-social-count", "title").all ( );
+        data.addAll (social);
+        String desc = content.css (".git-project-desc-text", "text").get ( );
+        data.add (desc);
+        String language = content.css (".summary-languages", "text").get ( );
+        data.add (language);
+        String time = content.css (".timeago", "title").get ( );
+        data.add (time);
         return data;
     }
 

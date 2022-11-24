@@ -16,12 +16,12 @@ import static com.nju.consts.UrlConstant.GITEE_URL;
  * @date:2022/11/18 18:58
  * @author: qyl
  */
-public class GiteeRepoInfoCrawl implements CrawlMethod {
+public class GiteeRepoInfoSpider implements CrawlMethod {
     private static final int PEND = 10;
 
     @Override
     public void crawl() {
-        crawlGiteeWithSpider();
+        crawlGiteeWithSpider ( );
     }
 
     /**

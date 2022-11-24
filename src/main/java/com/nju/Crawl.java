@@ -1,7 +1,9 @@
 package com.nju;
 
+import com.nju.consts.CrawlMethod;
 import com.nju.consts.Crawls;
 import com.nju.utils.CrawlStrategy;
+import com.nju.utils.CsvUtils;
 import org.apache.spark.SparkConf;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -10,10 +12,6 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.StructType;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @description
  * @date:2022/11/8 16:07
@@ -21,18 +19,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class Crawl {
     public static void main(String[] args) {
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor ( );
-        executor.scheduleWithFixedDelay (() -> {
-            try {
-                long start = System.currentTimeMillis ( );
-                CrawlStrategy.crawl (Crawls.GITEEOPENINFOCRAWL);
+//        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor ( );
+        try {
+            long start = System.currentTimeMillis ( );
+            CrawlStrategy.crawl (Crawls.GITEEREPOINFOSPIDER);
 //            upload();
-                long end = System.currentTimeMillis ( );
-                System.out.println ((end - start) / 1_000);
+            CsvUtils.createCSVFile2 (CrawlMethod.REPO_HEADER, CrawlMethod.data, "data/", "all_data");
+            long end = System.currentTimeMillis ( );
+            System.out.println ((end - start) / 1_000);
 
-            } catch (Exception e) {
-            }
-        }, 0, 10, TimeUnit.SECONDS);
+        } catch (Exception e) {
+        }
     }
 
     private static void upload() {

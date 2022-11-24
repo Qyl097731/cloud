@@ -8,7 +8,7 @@ package com.nju.consts;
 public class Crawls {
     public static final String GITEEOPENINFOCRAWL = "GiteeOpenInfoCrawl";
     public static final String GITEEOPENINFOSPIDER = "GiteeOpenInfoSpider";
-    public static final String GITEEREPOINFOCRAWL = "GiteeRepoInfoCrawl";
+    public static final String GITEEREPOINFOSPIDER = "GiteeRepoInfoSpider";
     public static final String IEEESRAWLWITHSPIDER = "IeeeSrawlWithSpider";
     private static CrawlMethod crawl;
 

@@ -3,15 +3,14 @@ package com.nju.crawls;
 import com.nju.consts.CrawlMethod;
 import com.nju.utils.CsvUtils;
 import com.nju.utils.HttpUtils;
-import kotlin.collections.ArrayDeque;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
@@ -45,12 +44,13 @@ public class GiteeOpenInfoCrawl implements CrawlMethod {
         crawlGiteeOpenInfoWithJsoup ( );
     }
 
+
     /**
      * 爬取指定页数数据，并把数据收集起来
      */
     private void crawlGiteeOpenInfoWithJsoup() {
         try {
-            List<List<Object>> data = new LinkedList<> ( );
+            List<List<Object>> data = new ArrayList<> ( );
             int pStart = PSTART;
             while (pStart < PEND) {
                 data.addAll (crawlGiteeOpenInfoWithJsoupConcurrently (pStart, Math.min (pStart + POOLSIZE, PEND)));
@@ -70,7 +70,7 @@ public class GiteeOpenInfoCrawl implements CrawlMethod {
      * @return
      */
     private List<List<Object>> crawlGiteeOpenInfoWithJsoupConcurrently(int start, int end) {
-        List<List<Object>> data = new ArrayDeque<> ( );
+        List<List<Object>> data = new ArrayList<> ( );
 
         CompletableFuture[] tasks = IntStream
                 .rangeClosed (start, end).mapToObj (
@@ -93,13 +93,13 @@ public class GiteeOpenInfoCrawl implements CrawlMethod {
      * @return
      */
     private List<List<Object>> encapsulateData(Document html) {
-        List<List<Object>> data = new ArrayDeque<> ( );
+        List<List<Object>> data = new ArrayList<> ( );
 
         Elements items = html.select (".ui.relaxed.divided.items.explore-repo__list > .item");
         try {
             CompletableFuture[] tasks = items.stream ( ).map (content ->
                     CompletableFuture.runAsync (() -> {
-                        List<Object> row = new ArrayDeque<> ( );
+                        List<Object> row = new ArrayList<> ( );
 
                         Elements namespace = content.select (".title.project-namespace-path");
                         String title = namespace.text ( );
