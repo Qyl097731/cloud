@@ -1,6 +1,6 @@
 package com.nju.pipeline;
 
-import com.nju.consts.CrawlMethod;
+import com.nju.crawls.CrawlMethod;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;

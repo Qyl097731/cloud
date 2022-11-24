@@ -1,7 +1,7 @@
 package com.nju.utils;
 
-import com.nju.consts.CrawlMethod;
 import com.nju.consts.Crawls;
+import com.nju.crawls.CrawlMethod;
 
 /**
  * @description 爬虫类

@@ -1,6 +1,6 @@
-package com.nju.crawls;
+package com.nju.crawls.impl;
 
-import com.nju.consts.CrawlMethod;
+import com.nju.crawls.CrawlMethod;
 import com.nju.pipeline.PaperLine;
 import com.nju.processor.PaperProcessor;
 import us.codecraft.webmagic.Request;

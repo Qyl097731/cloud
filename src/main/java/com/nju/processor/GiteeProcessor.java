@@ -1,7 +1,6 @@
 package com.nju.processor;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -14,7 +13,6 @@ import java.util.List;
  * @author: qyl
  */
 public class GiteeProcessor implements PageProcessor {
-    private static final Logger log = Logger.getLogger(GiteeProcessor.class);
     private Site site;
 
     public GiteeProcessor() {

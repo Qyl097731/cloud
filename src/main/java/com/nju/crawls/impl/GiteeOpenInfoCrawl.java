@@ -1,6 +1,6 @@
-package com.nju.crawls;
+package com.nju.crawls.impl;
 
-import com.nju.consts.CrawlMethod;
+import com.nju.crawls.CrawlMethod;
 import com.nju.utils.CsvUtils;
 import com.nju.utils.HttpUtils;
 import org.apache.commons.lang3.StringUtils;

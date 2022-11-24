@@ -1,4 +1,4 @@
-package com.nju.consts;
+package com.nju.crawls;
 
 import com.nju.utils.ThreadPoolUtil;
 

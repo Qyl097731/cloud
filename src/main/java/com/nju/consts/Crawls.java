@@ -1,5 +1,7 @@
 package com.nju.consts;
 
+import com.nju.crawls.CrawlMethod;
+
 /**
  * @description
  * @date:2022/11/18 18:33
@@ -17,7 +19,7 @@ public class Crawls {
 
     public static CrawlMethod of(String name) {
         try {
-            Class<?> clazz = Crawls.class.getClassLoader ( ).loadClass ("com.nju.crawls." + name);
+            Class<?> clazz = CrawlMethod.class.getClassLoader ( ).loadClass ("com.nju.crawls.impl." + name);
             if (clazz != null) {
                 crawl = (CrawlMethod) clazz.newInstance ( );
             }
