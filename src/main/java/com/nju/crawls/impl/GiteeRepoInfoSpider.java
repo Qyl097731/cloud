@@ -17,8 +17,6 @@ import static com.nju.consts.UrlConstant.GITEE_URL;
  * @author: qyl
  */
 public class GiteeRepoInfoSpider implements CrawlMethod {
-    private static final int PEND = 10;
-
     @Override
     public void crawl() {
         crawlGiteeWithSpider ( );

@@ -3,15 +3,12 @@ package com.nju.consts;
 import com.nju.crawls.CrawlMethod;
 
 /**
- * @description
+ * @description 所有的爬虫类
  * @date:2022/11/18 18:33
  * @author: qyl
  */
 public class Crawls {
-    public static final String GITEEOPENINFOCRAWL = "GiteeOpenInfoCrawl";
     public static final String GITEEOPENINFOSPIDER = "GiteeOpenInfoSpider";
-    public static final String GITEEREPOINFOSPIDER = "GiteeRepoInfoSpider";
-    public static final String IEEESRAWLWITHSPIDER = "IeeeSrawlWithSpider";
     private static CrawlMethod crawl;
 
     private Crawls() {

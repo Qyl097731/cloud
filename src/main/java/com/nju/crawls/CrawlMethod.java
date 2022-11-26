@@ -18,7 +18,7 @@ public interface CrawlMethod {
     List<List<Object>> data = new ArrayList<> ( );
     List<String> urls = new ArrayList<> ( );
     int PSTART = 1;
-    int PEND = 10;
+    int PEND = 20;
     List<Object> HEADER = Arrays.asList (
             "author",
             "repo",
@@ -31,9 +31,9 @@ public interface CrawlMethod {
             "time"
     );
     List<Object> REPO_HEADER = Arrays.asList (
+            "symbol",
             "author",
             "repo",
-            "labels",
             "watch",
             "star",
             "fork",

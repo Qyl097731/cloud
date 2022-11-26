@@ -1,6 +1,5 @@
 package com.nju.processor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -44,12 +43,14 @@ public class RepoProcessor implements PageProcessor {
 
     private List<Object> encapsulateData(Html content) {
         List<Object> data = new ArrayList<> ( );
+        List<String> symbol = content.css (".git-project-categories > a", "text").all ( );
+        data.add (symbol);
         String author = content.css (".author", "text").get ( );
         data.add (author);
         String repo = content.css (".repository", "text").get ( );
         data.add (repo);
-        List<String> labels = content.css (".project-label-item", "text").all ( );
-        data.add (StringUtils.join (labels, ","));
+//        List<String> labels = content.css (".project-label-item", "text").all ( );
+//        data.add (StringUtils.join (labels,">"));
         List<String> social = content.css (".ui.button.action-social-count", "title").all ( );
         data.addAll (social);
         String desc = content.css (".git-project-desc-text", "text").get ( );

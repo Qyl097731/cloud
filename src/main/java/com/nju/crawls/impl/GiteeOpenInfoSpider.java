@@ -34,7 +34,7 @@ public class GiteeOpenInfoSpider implements CrawlMethod {
     private void crawlRepoInfo() {
         Request[] requests = CrawlMethod.urls.stream ( ).map (url ->
                 new Request (GITEE_REPO_URL + url).setMethod (HttpConstant.Method.GET)).toArray (Request[]::new);
-        int n = urls.size ( );
+        int n = requests.length;
         int start = 0;
         while (start < n) {
             Request[] subRequests = Arrays.copyOfRange (requests, start, Math.min (start + POOLSIZE, n));
@@ -57,11 +57,17 @@ public class GiteeOpenInfoSpider implements CrawlMethod {
                         String target = String.format (GITEE_URL, suffix);
                         return new Request (target).setMethod (HttpConstant.Method.GET);
                     }).toArray (Request[]::new);
-            //执行爬取任务
-            Spider spider = Spider.create (new GiteeProcessor ( ));
-            //调用接口地址 在Pipeline中进行数据处理
-            spider.addRequest (requests).addPipeline (new GiteePipeline ( ))
-                    .thread (POOL, POOLSIZE).run ( );
+            int n = requests.length;
+            int start = 0;
+            while (start < n) {
+                Request[] subRequests = Arrays.copyOfRange (requests, start, Math.min (start + POOLSIZE, n));
+                //执行爬取任务
+                Spider spider = Spider.create (new GiteeProcessor ( ));
+                //调用接口地址 在Pipeline中进行数据处理
+                spider.addRequest (subRequests).addPipeline (new GiteePipeline ( ))
+                        .thread (POOL, subRequests.length).run ( );
+                start += POOLSIZE;
+            }
         } catch (Exception e) {
         }
     }

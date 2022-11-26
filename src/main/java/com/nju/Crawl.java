@@ -28,23 +28,30 @@ public class Crawl {
             executor.scheduleWithFixedDelay (() -> {
                 long start = System.currentTimeMillis ( );
                 CrawlStrategy.crawl (Crawls.GITEEOPENINFOSPIDER);
-//            upload();
+//                upload ( );
                 CsvUtils.createCSVFile2 (CrawlMethod.REPO_HEADER, CrawlMethod.data, "data/", "all_data");
+                closeGracefully ( );
                 long end = System.currentTimeMillis ( );
                 System.out.println ((end - start) / 1_000);
-            }, 0, 50, TimeUnit.SECONDS);
+            }, 0, 10000, TimeUnit.SECONDS);
         } catch (Exception e) {
         }
     }
 
+    private static void closeGracefully() {
+        CrawlMethod.urls.clear ( );
+        CrawlMethod.data.clear ( );
+    }
+
     private static void upload() {
+        System.setProperty ("HADOOP_USER_NAME", "root");
         SparkConf conf = new SparkConf ( ).setAppName ("crawl").setMaster ("local");
         SparkSession spark = SparkSession.builder ( ).config (conf).getOrCreate ( );
 
         StructType schema = new StructType ( )
+                .add ("symbol", DataTypes.StringType, true)
                 .add ("author", DataTypes.StringType, true)
                 .add ("repo", DataTypes.StringType, true)
-                .add ("labels", DataTypes.StringType, true)
                 .add ("watch", DataTypes.StringType, true)
                 .add ("star", DataTypes.StringType, true)
                 .add ("fork", DataTypes.StringType, true)
@@ -59,9 +66,8 @@ public class Crawl {
                 .csv ("data/");
         csv.coalesce (1)
                 .write ( )
-                .mode (SaveMode.Append)
-                .format ("csv")
+                .mode (SaveMode.Overwrite)
                 .option ("header", true)
-                .option ("path", "hdfs://master:9000/cloud/qyl/all_data.csv");
+                .csv ("hdfs://master:9000/cloud/gitee/all_data.csv");
     }
 }
