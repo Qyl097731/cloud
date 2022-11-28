@@ -27,6 +27,7 @@ public class WatchingAnalyzerService {
     private static ScheduledExecutorService service;
     private static Set<Integer>[] nums = new Set[3];
     private static Map<Integer, Integer>[] map = new Map[3];
+    //    private static String src = "data/output/ranks/";
     private static String src = "/root/test/data/output/ranks/";
     private static String filename = "ranks";
     private static String dest = "hdfs://master:9000/cloud/";

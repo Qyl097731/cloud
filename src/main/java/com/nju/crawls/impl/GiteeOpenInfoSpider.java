@@ -58,15 +58,15 @@ public class GiteeOpenInfoSpider implements CrawlMethod {
                         return new Request (target).setMethod (HttpConstant.Method.GET);
                     }).toArray (Request[]::new);
             int n = requests.length;
-            int start = 0;
-            while (start < n) {
-                Request[] subRequests = Arrays.copyOfRange (requests, start, Math.min (start + POOLSIZE, n));
+            int start = n;
+            while (start >= 0) {
+                Request[] subRequests = Arrays.copyOfRange (requests, Math.max (start - POOLSIZE, 0), start);
                 //执行爬取任务
                 Spider spider = Spider.create (new GiteeProcessor ( ));
                 //调用接口地址 在Pipeline中进行数据处理
                 spider.addRequest (subRequests).addPipeline (new GiteePipeline ( ))
                         .thread (POOL, subRequests.length).run ( );
-                start += POOLSIZE;
+                start -= POOLSIZE;
             }
         } catch (Exception e) {
         }

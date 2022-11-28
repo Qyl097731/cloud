@@ -94,7 +94,7 @@ public class DividerAnalyzerService {
                 .where ((col ("divider")).isNotNull ( ))
                 .where ((col ("divider")).notEqual ("None"))
                 .withColumn ("divider",
-                        explode (split (col ("divider"), "/")))
+                        explode (split (col ("divider"), "[-/]")))
                 .withColumn ("time", to_timestamp (col ("time")))
                 .where (ds.col ("time").between (date_sub (ds.col ("time"), 1), col ("time")));
     }
