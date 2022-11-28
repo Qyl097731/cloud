@@ -18,7 +18,7 @@ public interface CrawlMethod {
     List<List<Object>> data = new ArrayList<> ( );
     List<String> urls = new ArrayList<> ( );
     int PSTART = 1;
-    int PEND = 20;
+    int PEND = 100;
     List<Object> HEADER = Arrays.asList (
             "author",
             "repo",
@@ -30,15 +30,19 @@ public interface CrawlMethod {
             "type",
             "time"
     );
+
+    String dest = "hdfs://master:9000/cloud/stream/";
+
     List<Object> REPO_HEADER = Arrays.asList (
-            "symbol",
+            "title",
             "author",
-            "repo",
-            "watch",
-            "star",
-            "fork",
-            "desc",
             "language",
+            "divider",
+            "watch",
+            "stars",
+            "fork",
+            "abstract",
+            "key_words",
             "time"
     );
 
