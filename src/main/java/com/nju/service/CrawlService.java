@@ -2,7 +2,7 @@ package com.nju.service;
 
 import com.nju.consts.Crawls;
 import com.nju.crawls.CrawlMethod;
-import com.nju.utils.CrawlStrategy;
+import com.nju.utils.CrawlProxy;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -18,8 +18,8 @@ public class CrawlService {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor ( );
         try {
             executor.scheduleWithFixedDelay (() -> {
-                CrawlStrategy.crawl (Crawls.GITEEOPENINFOSPIDER);
-                closeGracefully ( );
+                CrawlProxy.crawl (Crawls.GITEEOPENINFOSPIDER);
+                closeGracefully ();
             }, 0, 10, TimeUnit.MINUTES);
         } catch (Exception e) {
         }

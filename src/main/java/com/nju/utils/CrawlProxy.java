@@ -8,14 +8,14 @@ import com.nju.crawls.CrawlMethod;
  * @date:2022/11/18 18:25
  * @author: qyl
  */
-public class CrawlStrategy {
-    private CrawlStrategy() {
+public class CrawlProxy {
+    private CrawlProxy() {
     }
 
     public static void crawl(String name) {
-        CrawlMethod method = Crawls.of(name);
-        if (method != null) {
-            method.crawl();
+        CrawlMethod delegator = Crawls.of (name);
+        if (delegator != null) {
+            delegator.crawl ();
         }
     }
 }
